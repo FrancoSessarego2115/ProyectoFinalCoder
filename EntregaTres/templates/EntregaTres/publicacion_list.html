@@ -1,0 +1,31 @@
+{% extends 'EntregaTres/base.html' %}
+
+{% block contenido %}
+<form>
+	<p>
+		<label for="criterio_nombre">Criterio:</label>
+		<input type="text" name="criterio_nombre" maxlength="40" requiered="" id="criterio_nombre">
+	</p>
+	<p>
+		<input type="submit" value="Buscar">
+	</p>
+</form>
+<ul>
+	<h1>LISTA DE PUBLICACIONES</h1>
+	{% for publicacion in publicaciones %}
+	<li>
+		{{ publicacion }} 
+		<a href="{% url 'publicacion-detalle' publicacion.id %}"><h2>VER MAS</h2></a>
+		{% if user.is_authenticated and publicacion.Autor == user %}
+		<a href="{% url 'publicacion-actualizar' publicacion.id %}"><h2>ACTUALIZAR</h2></a>
+		<a href="{% url 'publicacion-borrar' publicacion.id %}"><h2>BORRAR</h2></a>
+		{% endif %}
+	</li>
+	{% endfor %}
+</ul>
+
+{% endblock %}
+		
+			
+    
+    
