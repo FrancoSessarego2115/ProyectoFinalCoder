@@ -7,16 +7,15 @@ class Publicacion(models.Model):
     Categoria = models.TextField(max_length=80)
     Descripccion_Posteo = models.TextField(max_length=500)
     Autor = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="Autor")
-    Imagen = models.ImageField(upload_to="Publicaciones", null=True, blank=True)
+    Imagen = models.ImageField(upload_to="Publicaciones")
 
     def __str__(self):
         return f"{self.id} -- {self.Titulo} -- {self.Categoria} -- {self.Descripccion_Posteo}"
 
-class Persona(models.Model):
-    nombre = models.TextField(max_length=50)
-    apellido = models.TextField(max_length=50)
-
-    def __str__(self):
-        return f"{self.id} -- {self.nombre} -- {self.apellido}"
+class Perfil(models.Model):
+    nombre = models.OneToOneField(to=User, on_delete=models.CASCADE, related_name="Perfil")
+    Imagen = models.ImageField(upload_to="Perfil")
 
 
+
+ 

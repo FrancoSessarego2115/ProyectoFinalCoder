@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from EntregaTres.models import Publicacion
+from EntregaTres.models import Publicacion, Perfil
 from EntregaTres.forms import PublicacionForm, BuscarPublicacionesForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -79,3 +79,8 @@ class PublicacionBorrar(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def handle_no_permission(self):
         return render(self.request, "EntregaTres/No_Encontrado.html")
 
+class PerfilActualizar(UpdateView):
+    model = Perfil
+    fields = '__all__'
+    success_url = reverse_lazy('Inicio')
+    template_name = 'EntregaTres/Perfil/perfil.html'
