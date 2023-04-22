@@ -19,7 +19,6 @@
 			<!--__--__--__--__--__--  L O G O  &   N A V    B A R --__--___--__--__--__-->
 			<header>
 				<div id="logo">
-				<img src="{{user.Perfil.Imagen.url}}" height="100%" width="24px" style="border-radius: 50%;">
 				<h1>‎ <span id="iisrt"><span id="ii">☼</span>  <span id="srt">Aliens</span></span></h1>
 				<div id="tagline">
 				</div>
@@ -28,17 +27,20 @@
 					<ul>
 						<li><a href="{% url 'Inicio' %}" id="homenav">Inicio</a></li>
 						<li><a href="{% url 'Publicaciones' %}" id="blognav">Blog</a></li>
-						<li><a href="{% url 'Publicaciones-crear' %}" >Crear Post</a></li>
 						{% if user.is_authenticated %}
+						<li><a href="{% url 'Publicaciones-crear' %}" id="">Crear Publicacion</a></li>
+						<li><a href="{% url 'mensaje-enviar' %}" id="">Enviar Mensajes</a></li>
 						<li>
-							<a href="{% url 'Salir' %}" id="fullwidthnav">{{user.username}} | Cerrar Sesion</a>
+							<a href="{% url 'Salir' %}" id="fullwidthnav">{{user.username}} | Cerrar Sesion</a> 
+							<img src="{{user.Perfil.Imagen.url}}" height="100%" width="24px" style="border-radius: 50%; margin-right: 10px">
 						</li>
+
 						{% else %}
 						<li>
-							<a href="{% url 'Registrarse' %}" id="fullwidthnav">Registrarse</a>
+							<a href="{% url 'Registrarse' %}" id="">Registrarse</a>
 						</li>
 						<li>
-							<a href="{% url 'Ingresar' %}" id="fullwidthnav">Iniciar Sesion</a>
+							<a href="{% url 'Ingresar' %}" id="">Iniciar Sesion</a>
 						</li>
 						{% endif %}
 					</ul>

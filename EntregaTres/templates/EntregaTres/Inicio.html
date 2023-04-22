@@ -35,9 +35,9 @@
 						<li><a href="{% url 'Publicaciones' %}" id="blognav">Blog</a></li>
 						{% if user.is_authenticated %}
 						<li>
+							<li><a href="{% url 'mensaje-enviar' %}" id="">Enviar Mensajes</a></li>
 							<a href="{% url 'Salir' %}" id="fullwidthnav">{{user.username}} | Cerrar Sesion</a> 
-							<a href="{% url 'perfil-actualizar' user.Perfil.id %}">
-							<img src="{{user.Perfil.Imagen.url}}" height="100%" width="24px" style="border-radius: 50%; margin-right: 10px">
+							<img src="{{user.Perfil.Imagen.url}}" height="100%" width="18px" style="border-radius: 50%; margin-right: 10px">
 						</li>
 						{% else %}
 						<li>
@@ -54,10 +54,10 @@
 			<!--__--__--__--__--  T H E    S L I D E R --__--__--__--___--__--__--__-->
 			<div class="slider-wrapper theme-default">
 				<div id="slider" class="nivoSlider">
-					<img src="{% static 'EntregaTres/images/slide1.jpg' %}" alt="" />
-					<a href="http://geeksband.com"><img src="{% static 'EntregaTres/images/slide2.jpg' %}" alt="" title="This is an example of a caption with a link" /></a>
-					<img src="{% static 'EntregaTres/images/ImagenReptilianos.jpg' %}" alt=""  title="¿Profesores Reptilianos?" />
-					<img src="{% static 'EntregaTres/images/slide4.jpg' %}" alt="" />
+					<a href=""><img src="{% static 'EntregaTres/images/AlienCarru.png' %}" alt="" title="This is an example of a caption with a link" /></a>
+					<a href=""><img src="{% static 'EntregaTres/images/Carru2.jpg' %}" alt="" title="This is an example of a caption with a link" /></a>
+					<a href=""><img src="{% static 'EntregaTres/images/AlienCarru.png' %}" alt="" title="This is an example of a caption with a link" /></a>
+					<a href=""><img src="{% static 'EntregaTres/images/AlienCarru.png' %}" alt="" title="This is an example of a caption with a link" /></a>
 				</div>
 			</div>
 			<script type="text/javascript">
@@ -65,9 +65,7 @@
 				$('#slider').nivoSlider({pauseTime: 6000,});
 			});
 			</script>
-			
 
-			.
 			<!--__--__--__--__--  M A I N   C O N T E N T  --__--__--__--___--__--__-->
 			<section>
 				<div id="line">
@@ -77,22 +75,22 @@
 				</div>
 				<div id="ourserv">
 					<article>
-						<h1>Web Design</h1>
-						<img src="{% static 'EntregaTres/images/1.jpg' %}" alt="" />
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit amet.</p>
-						<a href="fullwidth.html" class="rm">Read More</a>
+						<h1>Extraterrestres</h1>
+						<img src="{% static 'EntregaTres/images/Alienigenas2.jpg' %}" width="250px" height="100%" alt="" />
+						<p>Estan aqui...</p>
+						<a href="fullwidth.html" class="rm">LEER MAS</a>
 					</article>
 					<article>
-						<h1>Graphic Design</h1>
-						<img src="{% static 'EntregaTres/images/2.jpg' %}" alt="" />
-						<p>Consectetuer adipiscing elit. Suspendisse enim elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit.</p>
-						<a href="fullwidth.html" class="rm">Read More</a>
+						<h1>Reptilianos</h1>
+						<img src="{% static 'EntregaTres/images/ImagenReptilianos.jpg' %}" width="300x" height="100%" alt="" />
+						<p>Ellos estan entre nosotros... nos estan remplazando lentamente, sin que nadie lo note se estan apoderando de nuestra sociedad</p>
+						<a href="fullwidth.html" class="rm">LEER MAS</a>
 					</article>
 					<article class="lastarticle">
-						<h1>Web Development</h1>
-						<img src="{% static 'EntregaTres/images/3.jpg' %}" alt="" />
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit enim.</p>
-						<a href="fullwidth.html" class="rm">Read More</a>
+						<h1>Teorias Conspirativas</h1>
+						<img src="{% static 'EntregaTres/images/TeoriasConspirativas.jpg' %}" width="230px" height="100%" alt="" />
+						<p>La tierra es plana, Las vacunas tiene chips, ellos intentan controlarnos y manejar el rumbo de nuestras vidas, tenemos que exponerlos...</p>
+						<a href="fullwidth.html" class="rm">LEER MAS</a>
 					</article>
 				</div>
 				<div id="sline">

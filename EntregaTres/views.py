@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from EntregaTres.models import Publicacion, Perfil
+from EntregaTres.models import Publicacion, Perfil, Mensajes
 from EntregaTres.forms import PublicacionForm, BuscarPublicacionesForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -48,8 +48,12 @@ class PublicacionDetalles(DetailView):
 class Crear_Publicacion(LoginRequiredMixin, CreateView):
     model = Publicacion
     success_url = reverse_lazy('Publicaciones')
-    fields = '__all__'
+    fields = ['Titulo','Categoria','Descripccion_Posteo','Imagen']
     template_name = 'EntregaTres/Publicaciones.html'
+
+    def form_valid(self,form):
+        form.instance.Autor = self.request.user
+        return super().form_valid(form)
 
 class PublicacionActualizar(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Publicacion
@@ -84,3 +88,30 @@ class PerfilActualizar(UpdateView):
     fields = '__all__'
     success_url = reverse_lazy('Inicio')
     template_name = 'EntregaTres/Perfil/perfil.html'
+    
+class CrearMensaje(CreateView):
+    model = Mensajes
+    fields = '__all__'
+    template_name = 'EntregaTres/mensajes.html'
+    success_url = reverse_lazy('Inicio')
+
+class VerMensajes(LoginRequiredMixin,ListView):
+    model = Mensajes
+    template_name = 'EntregaTres/ver-mensajes.html'
+    context_object_name = "mensajes"
+
+    def get_queryset(self):
+        return Mensajes.objects.filter(destinatario=self.request.user.id).all()
+
+class BorrarMensajes(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
+    model = Mensajes
+    template_name = 'EntregaTres/borrar-mensajes.html'
+    success_url = reverse_lazy('mensaje-recibidos')
+
+    def test_func(self):
+        user_id = self.request.user.id
+        mensaje_id = self.kwargs.get('pk')
+        return Publicacion.objects.filter(destinatario=user.id).exists()
+
+    def handle_no_permission(self):
+        return render(self.request, "EntregaTres/No_Encontrado.html")

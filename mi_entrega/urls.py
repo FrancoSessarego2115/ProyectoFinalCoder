@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from EntregaTres.views import (PaginaPrincipal, Inicio, Crear_Publicacion, BuscarPublicaciones,
                                 FiltrarPublicacion, Sistema_Usuarios, Login, Logout, PublicacionDetalles, PublicacionActualizar,
-                                PublicacionBorrar, PerfilActualizar
+                                PublicacionBorrar, PerfilActualizar, CrearMensaje, VerMensajes, BorrarMensajes
 )
 from django.conf import settings
 from django.conf.urls.static import static         
@@ -22,6 +22,10 @@ urlpatterns = [
     path('Ingresar/', Login.as_view(), name="Ingresar"),
     path('Salir/', Logout.as_view(), name="Salir"),
     path('perfil/<pk>/actualizar', PerfilActualizar.as_view(), name="perfil-actualizar"),
+    path('mensaje/enviar', CrearMensaje.as_view(),name="mensaje-enviar"),   
+    path('mensaje/recibidos', VerMensajes.as_view(),name="mensaje-recibidos"),   
+    path('mensaje/<pk>/detalle', VerMensajes.as_view(),name="mensaje-detalle"),     
+    path('mensaje/<pk>/borrar', BorrarMensajes.as_view(),name="mensaje-borrar"),     
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
