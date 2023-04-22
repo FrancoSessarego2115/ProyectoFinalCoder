@@ -4,7 +4,8 @@ from EntregaTres.views import (PaginaPrincipal, Inicio, Crear_Publicacion, Busca
                                 FiltrarPublicacion, Sistema_Usuarios, Login, Logout, PublicacionDetalles, PublicacionActualizar,
                                 PublicacionBorrar
 )
-                                
+from django.conf import settings
+from django.conf.urls.static import static         
 
 
 urlpatterns = [
@@ -20,4 +21,7 @@ urlpatterns = [
     path('Registrarse/', Sistema_Usuarios.as_view(), name="Registrarse"),
     path('Ingresar/', Login.as_view(), name="Ingresar"),
     path('Salir/', Logout.as_view(), name="Salir"),
+
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -2,10 +2,12 @@
 
 {% block contenido %}
 <p>
-    {{object}}
-
+    <h1>{{object.Titulo}}</h1>
     <br>
-
+    <img src="{{ object.Imagen.url}}" width="640px" height="100%">
+    <br>
+    {{object}}
+    <br>
     <a href="{% url 'Publicaciones' %}"><h2>VOLVER</h2></a>
 
 </p>
