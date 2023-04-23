@@ -1,4 +1,4 @@
-{% extends 'EntregaTres/base.html' %}
+{% extends 'EntregaTres/Publicaciones/publicaciones-base.html' %}
 
 {% block contenido %}
 <form>
@@ -11,8 +11,9 @@
 	</p>
 </form>
 <ul>
-	<h1>LISTA DE PUBLICACIONES</h1>
+	<h1><ul>TODAS LAS PUBLICACIONES:</ul></h1>
 	{% for publicacion in publicaciones %}
+	--------------------------------------------------------------------------------------------------------------------------
 	<li>
 		{{ publicacion }} 
 		<a href="{% url 'publicacion-detalle' publicacion.id %}"><h2>VER MAS</h2></a>
@@ -21,6 +22,8 @@
 		<a href="{% url 'publicacion-borrar' publicacion.id %}"><h2>BORRAR</h2></a>
 		{% endif %}
 	</li>
+	--------------------------------------------------------------------------------------------------------------------------
+
 	{% endfor %}
 </ul>
 

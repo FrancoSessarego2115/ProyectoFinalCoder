@@ -18,7 +18,7 @@
     </head>
 	<body id="home">
 		<div id="wrapper">
-    <div class="hero-full-container background-image-container white-text-container" style="background-image: url static 'EntregaTres/images/fondo3.jpg">			
+    <div class="hero-full-container background-image-container white-text-container" style="background-image: url {% static 'EntregaTres/images/fondo15.jpg' %}">			
       <!--__--__--__--__--  T H E    F O O T E R --__--__--__--___--__--__--__-->
 
 			<!--__--__--__--__--__--  L O G O  &   N A V    B A R --__--___--__--__--__-->
@@ -35,7 +35,7 @@
 						<li><a href="{% url 'Publicaciones' %}" id="blognav">Blog</a></li>
 						{% if user.is_authenticated %}
 						<li>
-							<li><a href="{% url 'mensaje-enviar' %}" id="">Enviar Mensajes</a></li>
+							<li><a href="{% url 'mensaje-recibidos' %}" id="">MENSAJERIA</a></li>
 							<a href="{% url 'Salir' %}" id="fullwidthnav">{{user.username}} | Cerrar Sesion</a> 
 							<img src="{{user.Perfil.Imagen.url}}" height="100%" width="18px" style="border-radius: 50%; margin-right: 10px">
 						</li>
@@ -47,6 +47,7 @@
 							<a href="{% url 'Ingresar' %}" id="fullwidthnav">Iniciar Sesion</a>
 						</li>
 						{% endif %}
+						<a href="{% url 'SobreMi' %}" id="">Sobre Mi</a>
 					</ul>
 				</nav>
 			</header>
@@ -54,10 +55,10 @@
 			<!--__--__--__--__--  T H E    S L I D E R --__--__--__--___--__--__--__-->
 			<div class="slider-wrapper theme-default">
 				<div id="slider" class="nivoSlider">
-					<a href=""><img src="{% static 'EntregaTres/images/AlienCarru.png' %}" alt="" title="This is an example of a caption with a link" /></a>
-					<a href=""><img src="{% static 'EntregaTres/images/Carru2.jpg' %}" alt="" title="This is an example of a caption with a link" /></a>
-					<a href=""><img src="{% static 'EntregaTres/images/AlienCarru.png' %}" alt="" title="This is an example of a caption with a link" /></a>
-					<a href=""><img src="{% static 'EntregaTres/images/AlienCarru.png' %}" alt="" title="This is an example of a caption with a link" /></a>
+					<img src="{% static 'EntregaTres/images/AlienCarru1.png' %}" alt="" title="Alienigenas" /></a>
+					<img src="{% static 'EntregaTres/images/AlienCarru2.jpg' %}" alt="" title="Alienigenas" /></a>
+					<img src="{% static 'EntregaTres/images/AlienCarru3.jpg' %}" alt="" title="Alienigenas" /></a>
+					<img src="{% static 'EntregaTres/images/AlienCarru4.jpg' %}" alt="" title="Alienigenas" /></a>
 				</div>
 			</div>
 			<script type="text/javascript">
@@ -78,19 +79,19 @@
 						<h1>Extraterrestres</h1>
 						<img src="{% static 'EntregaTres/images/Alienigenas2.jpg' %}" width="250px" height="100%" alt="" />
 						<p>Estan aqui...</p>
-						<a href="fullwidth.html" class="rm">LEER MAS</a>
+						<a href="{% url 'Categoria-Alienigenas' %}" class="rm">LEER MAS</a>
 					</article>
 					<article>
 						<h1>Reptilianos</h1>
 						<img src="{% static 'EntregaTres/images/ImagenReptilianos.jpg' %}" width="300x" height="100%" alt="" />
 						<p>Ellos estan entre nosotros... nos estan remplazando lentamente, sin que nadie lo note se estan apoderando de nuestra sociedad</p>
-						<a href="fullwidth.html" class="rm">LEER MAS</a>
+						<a href="{% url 'Categoria-Reptilianos' %}" class="rm">LEER MAS</a>
 					</article>
 					<article class="lastarticle">
 						<h1>Teorias Conspirativas</h1>
 						<img src="{% static 'EntregaTres/images/TeoriasConspirativas.jpg' %}" width="230px" height="100%" alt="" />
 						<p>La tierra es plana, Las vacunas tiene chips, ellos intentan controlarnos y manejar el rumbo de nuestras vidas, tenemos que exponerlos...</p>
-						<a href="fullwidth.html" class="rm">LEER MAS</a>
+						<a href="{% url 'Categoria-Teorias' %}" class="rm">LEER MAS</a>
 					</article>
 				</div>
 				<div id="sline">
@@ -98,34 +99,6 @@
 					<h1>Ultimas Publicaciones</h1>
 					<div class="sdline"></div>
 				</div>
-				<div id="latestp">
-					<article>
-						<h1>Lorem Ipsum Dolor Sit</h1>
-						<img src="{% static 'EntregaTres/images/1s.jpg' %}" alt="" />
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque.</p>
-						<a href="singlepost.html" class="rm">Read More</a>
-					</article>
-					<article>
-						<h1>Lorem Ipsum Dolor Sit</h1>
-						<img src="images/2s.jpg" alt="" />
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque.</p>
-						<a href="singlepost.html" class="rm">Read More</a>
-					</article>
-					<article>
-						<h1>Lorem Ipsum Dolor Sit</h1>
-						<img src="images/3s.jpg" alt="" />
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque.</p>
-						<a href="singlepost.html" class="rm">Read More</a>
-					</article>
-					<article class="lastarticle">
-						<h1>Lorem Ipsum Dolor Sit</h1>
-						<img src="images/4s.jpg" alt="" />
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque.</p>
-						<a href="singlepost.html" class="rm">Read More</a>
-					</article>
-				</div>
-			</section>				
-			<footer>
 				<p>Copyright &copy 2013 Source X by Youssef Nassim and Zakariya Lhamri, design from <a href="http://geeksband.com">Geeksband.com</a>. All Rights Reserved.</p>
 			</footer>
 		</div>			

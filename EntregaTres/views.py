@@ -9,16 +9,42 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 # Create your views here.
 
-def PaginaPrincipal(request):
-    return render(request, 'EntregaTres/PaginaPrincipal.html')
+def SobreMi(request):
+    return render(request, "EntregaTres/sobre_mi.html")
 
-def Inicio(request):
-    return render(request, 'EntregaTres/Inicio.html')
+class Inicio(ListView):
+    model = Publicacion
+    template_name = 'EntregaTres/Inicio.html'
 
+class CategoriaAlien(ListView):  
+    model = Publicacion
+    context_object_name = "publicaciones"
+    template_name = 'EntregaTres/Publicaciones/Categorias/Alienigenas.html'
+
+    def get_queryset(self):
+        return Publicacion.objects.filter(Topico__icontains="Alienigenas")
+
+class CategoriaReptiliano(ListView):  
+    model = Publicacion
+    context_object_name = "publicaciones"
+    template_name = 'EntregaTres/Publicaciones/Categorias/Reptilianos.html'
+
+    def get_queryset(self):
+        return Publicacion.objects.filter(Topico__icontains="Reptilianos")
+
+class CategoriaTeorias(ListView):  
+    model = Publicacion
+    context_object_name = "publicaciones"
+    template_name = 'EntregaTres/Publicaciones/Categorias/Teorias.html'
+
+    def get_queryset(self):
+        return Publicacion.objects.filter(Topico__icontains="Teorias")
 
 class BuscarPublicaciones(ListView):  
     model = Publicacion
     context_object_name = "publicaciones"
+    template_name = 'EntregaTres/Publicaciones/publicacion_list.html'
+
 
     def get_queryset(self):
         f = BuscarPublicacionesForm(self.request.GET)
@@ -26,40 +52,14 @@ class BuscarPublicaciones(ListView):
             return Publicacion.objects.filter(Titulo__icontains=f.data["criterio_nombre"]).all()
         return Publicacion.objects.all()
     
-
 class FiltrarPublicacion(DetailView):
     model = Publicacion
-
-class Sistema_Usuarios(CreateView):
-    form_class = UserCreationForm
-    template_name = 'registration/Inscribirse.html'
-    success_url = reverse_lazy('Inicio')
-
-class Login(LoginView):
-    next_page = reverse_lazy('Inicio')
-
-class Logout(LogoutView):
-    template_name = 'registration/logout.html'
-
-class PublicacionDetalles(DetailView):
-    model = Publicacion
-    template_name = 'EntregaTres/publicacion_detalles.html'
-
-class Crear_Publicacion(LoginRequiredMixin, CreateView):
-    model = Publicacion
-    success_url = reverse_lazy('Publicaciones')
-    fields = ['Titulo','Categoria','Descripccion_Posteo','Imagen']
-    template_name = 'EntregaTres/Publicaciones.html'
-
-    def form_valid(self,form):
-        form.instance.Autor = self.request.user
-        return super().form_valid(form)
 
 class PublicacionActualizar(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Publicacion
     success_url = reverse_lazy('Publicaciones')
     fields = '__all__'
-    template_name = 'EntregaTres/Publicaciones.html'
+    template_name = 'EntregaTres/Publicaciones/Publicaciones.html'
     context_object_name = "publicaciones"
     
     def test_func(self):
@@ -73,7 +73,7 @@ class PublicacionActualizar(LoginRequiredMixin, UserPassesTestMixin, UpdateView)
 class PublicacionBorrar(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Publicacion
     success_url = reverse_lazy("Publicaciones")
-    template_name = 'EntregaTres/publicacion_borrar.html'
+    template_name = 'EntregaTres/Publicaciones/publicacion_borrar.html'
 
     def test_func(self):
         user_id = self.request.user.id
@@ -83,35 +83,81 @@ class PublicacionBorrar(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def handle_no_permission(self):
         return render(self.request, "EntregaTres/No_Encontrado.html")
 
-class PerfilActualizar(UpdateView):
+class Crear_Publicacion(LoginRequiredMixin, CreateView):
+    model = Publicacion
+    success_url = reverse_lazy('Publicaciones')
+    fields = ['Titulo','Topico','Descripccion_Posteo','Imagen']
+    template_name = 'EntregaTres/Publicaciones/Publicaciones.html'
+
+    def form_valid(self,form):
+        form.instance.Autor = self.request.user
+        return super().form_valid(form)
+
+class PublicacionDetalles(DetailView):
+    model = Publicacion
+    template_name = 'EntregaTres/Publicaciones/publicacion_detalles.html'
+
+class Sistema_Usuarios(CreateView):
+    form_class = UserCreationForm
+    template_name = 'registration/Inscribirse.html'
+    success_url = reverse_lazy('Inicio')
+
+class Login(LoginView):
+    next_page = reverse_lazy('Inicio')
+
+class Logout(LogoutView):
+    template_name = 'registration/logout.html'
+
+class Perfil(ListView):
     model = Perfil
     fields = '__all__'
     success_url = reverse_lazy('Inicio')
-    template_name = 'EntregaTres/Perfil/perfil.html'
+    context_object_name = "perfil"
+    template_name = 'EntregaTres/Perfil/mi_perfil.html'
     
 class CrearMensaje(CreateView):
     model = Mensajes
     fields = '__all__'
-    template_name = 'EntregaTres/mensajes.html'
-    success_url = reverse_lazy('Inicio')
+    template_name = 'EntregaTres/Mensajeria/mensaje-crear.html'
+    success_url = reverse_lazy('mensaje-recibidos')
 
-class VerMensajes(LoginRequiredMixin,ListView):
+class VerMensajes(LoginRequiredMixin,UserPassesTestMixin,ListView):
     model = Mensajes
-    template_name = 'EntregaTres/ver-mensajes.html'
+    template_name = 'EntregaTres/Mensajeria/mensaje-ver.html'
     context_object_name = "mensajes"
+
+    def test_func(self):
+        user_id = self.request.user.id
+        mensaje_id = self.kwargs.get('pk')
+        return Mensajes.objects.filter(destinatario=user_id).exists()
+
+    def handle_no_permission(self):
+        return render(self.request, "EntregaTres/No_Encontrado.html")
 
     def get_queryset(self):
         return Mensajes.objects.filter(destinatario=self.request.user.id).all()
 
+class MensajeDetalle(UserPassesTestMixin,DetailView):
+    model = Mensajes
+    template_name = 'EntregaTres/Mensajeria/mensaje-detalles.html'
+
+    def test_func(self):
+        user_id = self.request.user.id
+        mensaje_id = self.kwargs.get('pk')
+        return Mensajes.objects.filter(destinatario=user_id).exists()
+
+    def handle_no_permission(self):
+        return render(self.request, "EntregaTres/No_Encontrado.html")
+
 class BorrarMensajes(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
     model = Mensajes
-    template_name = 'EntregaTres/borrar-mensajes.html'
+    template_name = 'EntregaTres/Mensajeria/mensaje-borrar.html'
     success_url = reverse_lazy('mensaje-recibidos')
 
     def test_func(self):
         user_id = self.request.user.id
         mensaje_id = self.kwargs.get('pk')
-        return Publicacion.objects.filter(destinatario=user.id).exists()
+        return Mensajes.objects.filter(destinatario=user_id).exists()
 
     def handle_no_permission(self):
         return render(self.request, "EntregaTres/No_Encontrado.html")

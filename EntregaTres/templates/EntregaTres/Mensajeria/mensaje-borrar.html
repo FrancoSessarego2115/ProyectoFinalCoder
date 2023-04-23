@@ -1,4 +1,4 @@
-{% extends "EntregaTres/base.html" %}
+{% extends 'EntregaTres/Mensajeria/mensajeria_base.html' %}
 
 {% block contenido %}
 
@@ -10,6 +10,6 @@
     {{form}}
     <input type="submit" value="Borrar">
 </form>
-<h1><li><a href="{% url 'Publicaciones' %}" >VOLVER</a></li></h1>
+<h1><li><a href="{% url 'mensaje-recibidos' %}" >VOLVER</a></li></h1>
 
 {% endblock %}

@@ -1,9 +1,9 @@
-{% extends 'EntregaTres/base.html' %}
+{% extends 'EntregaTres/Mensajeria/mensajeria_base.html' %}
 
 {% block contenido %}
 <form>
 	<p>
-		<label for="criterio_nombre">Criterio:</label>
+		<label for="criterio_nombre">Filtrar:</label>
 		<input type="text" name="criterio_nombre" maxlength="40" requiered="" id="criterio_nombre">
 	</p>
 	<p>
@@ -11,14 +11,24 @@
 	</p>
 </form>
 <ul>
-	<h1>LISTA DE PUBLICACIONES</h1>
+	<h1><u>BANDEJA DE ENTRADA</u></h1>
+	<br>
+	{% if not mensajes %}
+	<h1>NO HAY MENSAJES</h1>
+	{% endif %}
+	<br>
 	{% for mensaje in mensajes %}
+--------------------------------------------------------------------------------------------------------------------------
+
+		<h1>{{mensaje}}</h1>
+		
 	<li>
-        {{ mensaje.email }}
-		{{ mensaje.mensaje }} 
+		<br>
+
 		<a href="{% url 'mensaje-detalle' mensaje.id %}"><h2>VER MAS</h2></a>
 		{% if user.is_authenticated and mensaje.destinatario == user %}
 		<a href="{% url 'mensaje-borrar' mensaje.id %}"><h2>BORRAR</h2></a>
+--------------------------------------------------------------------------------------------------------------------------
 		{% endif %}
 	</li>
 	{% endfor %}

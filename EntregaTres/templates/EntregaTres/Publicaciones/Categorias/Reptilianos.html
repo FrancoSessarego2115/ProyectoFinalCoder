@@ -1,0 +1,16 @@
+{% extends 'EntregaTres/Publicaciones/publicaciones-base.html' %}
+
+{% block contenido %}
+<ul>
+	<h1><u>PUBLICACIONES RELACIONADAS CON REPTILIANOS:</u></h1>
+    <br>
+	{% for publicacion in publicaciones %}
+    --------------------------------------------------------------------------------------------------------------------------
+	<li>
+        {{publicacion}}
+        <a href="{% url 'publicacion-detalle' publicacion.id %}"><h2>VER MAS</h2></a>
+	</li>
+	{% endfor %}
+    --------------------------------------------------------------------------------------------------------------------------
+</ul>
+{% endblock %}

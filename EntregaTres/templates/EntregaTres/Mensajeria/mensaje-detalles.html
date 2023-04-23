@@ -1,0 +1,16 @@
+{% extends 'EntregaTres/Mensajeria/mensajeria_base.html' %}
+
+{% block contenido %}
+<p> 
+    <h1><u>Enviado Por:</u></h1>
+    <h2>{{object.email}}</h2>
+    <br>
+    <h1><u>Mensaje:</u></h1>
+    <h2>{{object.mensaje}}</h2>
+    <br>
+
+    <br>
+    <a href="{% url 'mensaje-recibidos' %}"><h2>VOLVER</h2></a>
+
+</p>
+{% endblock %}
